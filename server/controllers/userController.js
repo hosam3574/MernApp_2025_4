@@ -63,7 +63,7 @@ const UpdateById = async(req,res)=>{
 const {id}=req.params
 const {username,email,password}=req.body
 try {
-      const userToDelete = await User.findByIdAndUpdate(id,{username,email,password})
+      const userToUpdate = await User.findByIdAndUpdate(id,{username,email,password})
        res.status(200).json({message:"user Updated done",user:userToUpdate})
 } catch (error) {
     res.status(500).json({massage:error })
