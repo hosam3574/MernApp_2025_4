@@ -5,7 +5,7 @@ const dotenv = require( 'dotenv');
 //import user router
 
 const userRouter =require('./routers/userRouters');
-
+const productRouter =require('./routers/productRouters');
 
 
 dotenv.config();
@@ -16,7 +16,7 @@ const app = express();
 app.use(express.json())
 
 app.use('/api/users', userRouter);
- 
+ app.use ('/api/product',productRouter)
 
 const PORT = process.env. PORT 
 app. listen (PORT,()=>{
