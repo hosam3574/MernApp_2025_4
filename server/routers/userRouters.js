@@ -8,8 +8,8 @@ const router = exprees.Router();
 
 router.post ('/create',createUser);
 router.get('/allUsers',getAllUsers);
-router.delete('/userToDelete/:id',deleteUserById)
-router.put('/userToUpdate/',UpdateById)
+router.delete('/delete/:id',deleteUserById)
+router.put('/update/',UpdateById)
 //export the router
 
 module.exports = router;
