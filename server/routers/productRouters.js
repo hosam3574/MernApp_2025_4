@@ -8,7 +8,7 @@ const router = exprees.Router();
 
 router.post('/creat',createProduct)
 router.get('/allProduct',getAllProdect)
-router.delete('/productToDelete',deletePrductById)
+router.delete('/productToDelete/:id ',deletePrductById)
 router.put('/productToUpdate',UpdateProductByID)
 
 

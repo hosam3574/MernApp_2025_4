@@ -9,7 +9,7 @@ const router = exprees.Router();
 router.post ('/create',createUser);
 router.get('/allUsers',getAllUsers);
 router.delete('/delete/:id',deleteUserById)
-router.put('/update/',UpdateById)
+router.put('/update/:id',UpdateById)
 //export the router
 
 module.exports = router;
