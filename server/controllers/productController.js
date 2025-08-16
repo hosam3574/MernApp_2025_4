@@ -12,7 +12,7 @@ const image = req.body.image;
 
 try {
     
-    const Product =new Product({
+    const product =new Product({
 
     name : name,
     dis : dis ,
@@ -20,12 +20,13 @@ try {
     price:price,
 
     })
-await Product.save();
+await product.save();
     res.status(201).json({massage: 'product Connected successfully'});
 
 } catch (error) {
+    console.log(error.massage)
     
-    res.status(500).json({massage:error })
+    res.status(500).json({massage:error.massage })
 }}
 
 
