@@ -58,7 +58,7 @@ if(!isMatched){
 
 if (user){
 
-const token = jwt.sign({id :user._id}, process.env. JWT_SECRET, { expiresIn: '1h'});
+const token = jwt.sign({id :user[0]._id}, process.env. JWT_SECRET, { expiresIn: '1h'});
 
 res.status (200) .json({ message: 'Login successful', user, token });
 }
