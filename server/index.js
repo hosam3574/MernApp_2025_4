@@ -2,8 +2,13 @@
 const connectDB = require('./config/db');
 const dotenv = require( 'dotenv');
 
-//import user router
 
+//import cors and use it to allow corss-origin requests
+const cors = require('cors');
+
+
+
+//import user router
 const userRouter =require('./routers/userRouters');
 const productRouter =require('./routers/productRouters');
 
@@ -15,6 +20,9 @@ connectDB()
 const app = express();
 app.use(express.json())
 
+app.use(cors ())
+
+// use user Router
 app.use('/api/users', userRouter);
  app.use ('/api/product',productRouter)
 

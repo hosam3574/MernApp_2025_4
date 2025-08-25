@@ -49,16 +49,22 @@ const loginUser = async (req ,res )=>{
 
 const {email,password}=req.body;
 
+
+//decrypt the password
+
 try {
-const user = await User.findone({ email: email });
+
+const user = await User.findOne({ email: email ,password:password });
 const isMatched = await bcrypt.compare(password,user.password)
-if(!isMatched){
-    return res.status(401).json({massage:'Invalid email or password'});
+if (!isMatched){
+    return res.status(401).json({massage:'Invalid email or password'});
 }
+
+
 
 if (user){
 
-const token = jwt.sign({id :user[0]._id}, process.env. JWT_SECRET, { expiresIn: '1h'});
+const token = jwt.sign({id :user._id}, process.env. JWT_SECRET, { expiresIn: '1h'});
 
 res.status (200) .json({ message: 'Login successful', user, token });
 }
@@ -70,7 +76,7 @@ res.status(401).json({ message: 'Invalid email or password' });
 
     
 } catch (error) {
-    res.status(500).json({massage:error })
+    res.status(500).json({massage:error });
 }
 
 

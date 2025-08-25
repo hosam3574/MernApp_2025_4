@@ -2,12 +2,13 @@ const jwt =require('jsonwebtoken');
 
 const userAuth = async (req,res,next)=>{
 
-const token=req.heders.userAuth
+const token=req.heders.uath
 
 try {
     
     const decoded = jwt.verify(token,process.env.JWT_SECRET);
     req.user=decoded;
+    console.log(req.user);
     next();
 
 
