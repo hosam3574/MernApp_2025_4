@@ -54,11 +54,16 @@ const {email,password}=req.body;
 
 try {
 
-const user = await User.findOne({ email: email ,password:password });
+const user = await User.findOne({ email: email  });
 const isMatched = await bcrypt.compare(password,user.password)
 if (!isMatched){
     return res.status(401).json({massage:'Invalid email or password'});
 }
+if(!user){
+     return res.status(401).json({massage:'Invalid email or password'});
+}
+
+
 
 
 

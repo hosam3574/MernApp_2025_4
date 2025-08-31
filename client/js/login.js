@@ -24,6 +24,13 @@ try {
 console.log(res)
 
 
+if(res.status===200){
+    alert("login successful");
+}
+else{
+    alert("login faild,please check your credenials")
+}
+
 } catch (error) {
     console.error('Error during login', error);
 alert('Login failed.please try again.');
