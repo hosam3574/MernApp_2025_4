@@ -5,7 +5,7 @@ event.preventDefault()
 
 var email=document.getElementById('form2Example1').value;
 var password =document.getElementById('form2Example2').value;
-
+var user ={email,password}
 try {
     console.log(email,password);
     var res =await fetch("http://localhost:5004/api/users/login",{
