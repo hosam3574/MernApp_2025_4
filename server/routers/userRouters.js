@@ -1,6 +1,6 @@
 // import userControoler 
 const exprees = require('express');
-const { createUser,getAllUsers,deleteUserById, UpdateById,profile,loginUser } = require('../controllers/userController');
+const { createUser,getAllUsers,deleteUserById, UpdateById,profile,loginUser,checkUserRole } = require('../controllers/userController');
 const router = exprees.Router();
 const userAuth = require('./userAuth');
 
@@ -15,6 +15,7 @@ router.get('/profil', userAuth,profile)
 // login rout
 router.post('/login',loginUser)
 
+router.get('/checkRole',userAuth,checkUserRole)
 
 
 

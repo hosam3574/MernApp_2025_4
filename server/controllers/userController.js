@@ -161,7 +161,7 @@ try {
 
 const profile =async (req , res )=>{
 
-const id = req.body.id
+const id = req.user.id
 try {
      const userProfile = await User.findById(id)
      res.status(200).json(userProfile)
@@ -173,4 +173,36 @@ try {
 
 }
 
-module.exports = { createUser,getAllUsers,deleteUserById ,UpdateById,profile ,loginUser};
+//check user role
+const checkUserRole= async(req,res)=>{
+const userid = req.user.id
+try {
+    
+const user =await User.findById(userid)
+
+if(user.role!=='admin'){
+    return res.status(403).json({massage:"Access denied"})
+}
+
+return res.status(200).json({massage:"Access denied"})
+
+} catch (error) {
+    res.status(500).json({massage:error.massage})
+}
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+module.exports = { createUser,getAllUsers,deleteUserById ,UpdateById,profile ,loginUser,checkUserRole};

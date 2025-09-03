@@ -1,6 +1,5 @@
-const { json } = require("express");
-
-var loginForm=document.getElementById('loginForm')
+var loginForm=document.getElementById('LoginForm')
+console.log(loginForm)
 loginForm.addEventListener('submit',async function (event) {
 
 event.preventDefault()

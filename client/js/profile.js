@@ -8,7 +8,7 @@ if(!token){
 }
 try {
 
-    var res =await fetch("http://127.0.0.1:5004/api/users/login",{
+    var res =await fetch("http://127.0.0.1:5004/api/users/profil",{
 
         method:'GET',
         headers:{
