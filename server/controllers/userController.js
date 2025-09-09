@@ -69,7 +69,7 @@ if(!user){
 
 if (user){
 
-const token = jwt.sign({id :user._id}, process.env. JWT_SECRET, { expiresIn: '1h'});
+const token = jwt.sign({id :user._id , role:user.role}, process.env.JWT_SECRET,{ expiresIn:'1h'});
 
 res.status (200) .json({ message: 'Login successful', user, token });
 }
@@ -205,4 +205,4 @@ return res.status(200).json({massage:"Access denied"})
 
 
 
-module.exports = { createUser,getAllUsers,deleteUserById ,UpdateById,profile ,loginUser,checkUserRole};
+module.exports = { createUser,getAllUsers,deleteUserById ,UpdateById,profile ,loginUser,checkUserRole,};

@@ -1,22 +1,27 @@
 // import userControoler 
 const exprees = require('express');
-const { createUser,getAllUsers,deleteUserById, UpdateById,profile,loginUser,checkUserRole } = require('../controllers/userController');
+const { createUser,getAllUsers,deleteUserById, UpdateById,profile,loginUser,checkUserRole, } = require('../controllers/userController');
 const router = exprees.Router();
-const userAuth = require('./userAuth');
 
+//import userAuth middleware
+const userAuth = require('./userAuth');
+const adminAuth = require('./adminAuth');
 //create user route
 
 router.post ('/create',createUser);
-router.get('/allUsers',getAllUsers);
-router.delete('/delete/:id',deleteUserById)
+router.get('/allUsers', adminAuth,getAllUsers);
+router.delete('/delete/:id', adminAuth,deleteUserById)
 router.put('/update/:id',UpdateById)
-//creat prfile route
-router.get('/profil', userAuth,profile)
+
+
 // login rout
 router.post('/login',loginUser)
+//router.put('/editPassword',userAuth,editPassword )
 
+
+//profile route
 router.get('/checkRole',userAuth,checkUserRole)
-
+router.get('/profil', userAuth,profile)
 
 
 
