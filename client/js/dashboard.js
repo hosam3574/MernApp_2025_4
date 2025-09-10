@@ -92,7 +92,7 @@ function renderUsers(users){
        <td>${user._role}</td>
        <td>
        <boutton onclick = "deleteUser('${user._id}')">Delete</button>
-         <boutton onclick = "showUpdateForm('${user._id}','${user.username}' ,'${user._email}','${user._role}')">Update</button>
+         <boutton class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick = "showUpdateForm('${user._id}','${user.username}' ,'${user._email}','${user._role}')">Update</button>
        </td>
     `;
     usersTable.appendChild(row);
@@ -125,6 +125,38 @@ async function deleteUser(userId) {
     }
 }
 
+
+var updateUserData =document.getElementById('updateUserData');
 async function showUpdateForm(id,username,email,role) {
-    
+    var userName =document.getElementById('userName');
+    var userEmail =document.getElementById('userEmail');
+    var userRoleInput =document.getElementById('userRoleInput');
+    var userIdInput = document.getElementById('userIdInput');
+
+     userIdInput.value=userIdInput;
+    userName.value=username;
+    userEmail.value=email;
+    userRoleInput.value=role;
 }
+
+
+updateUserData.addEventListener('submit',async function (e) {
+
+    e.preventDefault();
+     var userName =document.getElementById('userName');
+    var userEmail =document.getElementById('userEmail');
+    var userRoleInput =document.getElementById('userRoleInput');
+    var userIdInput = document.getElementById('userIdInput');
+
+    const token=localStorage.getItem('token');
+    try {
+
+        //ضل الاشي هاذ اعملو مودود باخر الفيديو 
+        
+    } catch (error) {
+                 console.error('Error updating user:',error)
+         alert('Failed to updating user . please try again .')
+         return;
+    }
+
+})
