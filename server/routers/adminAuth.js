@@ -15,14 +15,14 @@ try {
        next();  
     }
 else{
-    return res.status(403).json({massage:"Access denied"})
+    return res.status(403).json({message:"Access denied"})
 }
 
    
 
 
 } catch (error) {
-    res.status(401).json({massage:"Unauthorized"});
+    res.status(401).json({message:"Unauthorized"});
 }
 
 

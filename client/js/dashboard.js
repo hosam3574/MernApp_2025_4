@@ -103,7 +103,8 @@ loadUsers();
 
 async function deleteUser(userId) {
     const token=localStorage.getItem('token')
-    try { var res =await fetch(`http://127.0.0.1:5004/api/users/delete/${userId} `,{
+    try {
+         var res =await fetch(`http://127.0.0.1:5004/api/users/delete/${userId} `,{
 
    
 
@@ -143,15 +144,29 @@ async function showUpdateForm(id,username,email,role) {
 updateUserData.addEventListener('submit',async function (e) {
 
     e.preventDefault();
-     var userName =document.getElementById('userName');
-    var userEmail =document.getElementById('userEmail');
-    var userRoleInput =document.getElementById('userRoleInput');
-    var userIdInput = document.getElementById('userIdInput');
+     var userName =document.getElementById('userName').value;
+    var userEmail =document.getElementById('userEmail').value;
+    var userRoleInput =document.getElementById('userRoleInput').value;
+    var userIdInput = document.getElementById('userIdInput').value;
 
     const token=localStorage.getItem('token');
     try {
 
-        //ضل الاشي هاذ اعملو مودود باخر الفيديو 
+         var res= await fetch (`http://localhost:5004/api/users/updateById/${updateById}`, {
+           
+            method :'PUT',
+           headers:{ 
+            'content-Type':'application/json' ,
+            'auth':token
+            
+           }, 
+
+           body:JSON.stringify({
+            username:userName,
+            email:userEmail,
+            role:userRoleInput
+           })
+         }) 
         
     } catch (error) {
                  console.error('Error updating user:',error)
@@ -160,3 +175,35 @@ updateUserData.addEventListener('submit',async function (e) {
     }
 
 })
+
+var addUserForm = document.getElementById('addUserForm');
+addUserForm.addEventListener('submit',async function (e) {
+    e.preventDefault();
+    
+      var userName =document.getElementById('name').value;
+    var userEmail =document.getElementById('email').value;
+       var userpassword =document.getElementById('password').value;
+    var userRole =document.getElementById('role').value;
+    const token =localStorage.getItem('token');
+    try {
+        var res= await fetch("http://localhost:5004/api/users/adminCreate",{
+             
+            method :'POST',
+           headers:{ 
+            'content-Type':'application/json' ,
+            'auth':token
+        },
+
+      body:JSON.stringify({
+            username:userName,
+            email:userEmail,
+            role:userRoleInput
+           })
+
+    })
+
+    
+    } catch (error) {
+        
+    }
+});

@@ -32,11 +32,13 @@ const hashedPassword=await bcrypt.hash(password,salt);
     })
     await user.save();
     console.log(user)
-    res.status(201).json({massage: 'User Connected new',user:user});
+    res.status(201).json({ message: 'User Connected new', user:user });
+
 }
 
 catch(error){
-res.status(500).json({massage:error })
+res.status(500).json({ message:error })
+
 }
  
 }
@@ -57,10 +59,10 @@ try {
 const user = await User.findOne({ email: email  });
 const isMatched = await bcrypt.compare(password,user.password)
 if (!isMatched){
-    return res.status(401).json({massage:'Invalid email or password'});
+    return res.status(401).json({message:'Invalid email or password'});
 }
 if(!user){
-     return res.status(401).json({massage:'Invalid email or password'});
+     return res.status(401).json({message:'Invalid email or password'});
 }
 
 
@@ -89,10 +91,37 @@ res.status(401).json({ message: 'Invalid email or password' });
 }
 
 
+//Register new user
+
+//هون بيطلعلي غلط !!!!!!!!
+const createUser = async (req, res) =>{
+const userName = req.body.username;
+const email = req. body .email;
+const password = req. body.password;
+const role = req.body.role;
+
+console.log(role);
 
 
 
+try {
+// encrypt the password
+const salt = await bcrypt.genSalt (10);
+const hashedPassword = await bcrypt. hash (password, salt)
 
+const user = new User({
+username: userName,
+ email: email,
+  password: hashedPassword,
+  role:role
+})
+await user.save();
+res.status (201). json({ message: 'User created successfully', user});
+
+}catch(error){
+console . error ('Error creating user' ,error. message);
+res.status(500).json({message:error.message});
+}}
 
 
 
@@ -111,7 +140,7 @@ try {
     res.status(200).json(allUsers)
     
 } catch (error) {
-    res.status(500).json({massage:error })
+    res.status(500).json({message:error })
 
 }
 }
@@ -126,21 +155,21 @@ try {
      res.status(200).json({message:"user delete",user:userToDelete})
     
 } catch (error) {
-    res.status(500).json({massage:error })
+    res.status(500).json({message:error })
 }
 
 }
 
 //Update
 
-const UpdateById = async(req,res)=>{
+const UpdateProfile = async(req,res)=>{
 const {id}=req.params
 const {username,email,password}=req.body;
 try {
       const userToUpdate = await User.findByIdAndUpdate(id,{username,email,password})
        res.status(200).json({message:"user Updated done",user:userToUpdate})
 } catch (error) {
-    res.status(500).json({massage:error })
+    res.status(500).json({message:error })
 }
 
 
@@ -166,7 +195,7 @@ try {
      const userProfile = await User.findById(id)
      res.status(200).json(userProfile)
 } catch (error) {
-     res.status(500).json({massage:error })
+     res.status(500).json({message:error })
 }
 
 
@@ -181,28 +210,37 @@ try {
 const user =await User.findById(userid)
 
 if(user.role!=='admin'){
-    return res.status(403).json({massage:"Access denied"})
+    return res.status(403).json({message:"Access denied"})
 }
 
-return res.status(200).json({massage:"Access denied"})
+return res.status(200).json({message:"Access denied"})
 
 } catch (error) {
-    res.status(500).json({massage:error.massage})
+    res.status(500).json({message:error.massage})
 }
-
-
-
-
-
 
 
 }
 
 
 
+//updateById
+
+
+const updateById = async(req,res)=>{
+const {id}=req.params
+const {username,email,role}=req.body;
+try {
+      const updateById = await User.findByIdAndUpdate(id,{username,email,role})
+       res.status(200).json({message:"user Updated done",user:userToUpdate})
+} catch (error) {
+    res.status(500).json({message:error })
+}
 
 
 
+}
 
 
-module.exports = { createUser,getAllUsers,deleteUserById ,UpdateById,profile ,loginUser,checkUserRole,};
+
+module.exports = { UpdateProfile,createUser,getAllUsers,deleteUserById ,updateById,profile ,loginUser,checkUserRole,};

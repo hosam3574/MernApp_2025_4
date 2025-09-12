@@ -1,6 +1,6 @@
 // import userControoler 
 const exprees = require('express');
-const { createUser,getAllUsers,deleteUserById, UpdateById,profile,loginUser,checkUserRole, } = require('../controllers/userController');
+const {UpdateProfile, createUser,getAllUsers,deleteUserById, updateById,profile,loginUser,checkUserRole, } = require('../controllers/userController');
 const router = exprees.Router();
 
 //import userAuth middleware
@@ -9,9 +9,16 @@ const adminAuth = require('./adminAuth');
 //create user route
 
 router.post ('/create',createUser);
+//جديد 
+router.post ('/adminCreate', adminAuth,createUser);
+
 router.get('/allUsers', adminAuth,getAllUsers);
 router.delete('/delete/:id', adminAuth,deleteUserById)
-router.put('/update/:id',UpdateById)
+//router.put('/update/:id',UpdateById)هاذ المهندس حذفو 
+router.put('/update/:id',userAuth,UpdateProfile)
+
+//updateByID
+router.put('/updateById/:id',adminAuth, updateById)
 
 
 // login rout

@@ -18,6 +18,16 @@
 <div class="userRole"></div>
 <a href="login.html"> Log Out</a>
 
+<!--form  to add new user -->
+
+<form class="addUserForm">
+  <input type="text" id="name" placeholder="Name" required>
+  <input type="email" id="email" placeholder="Email" required>
+  <input type="password" id="password" placeholder="Password" required>
+  <input type="text" id="role" placeholder="Role (admin/user)" required>
+  <button type="submit">Add User</button>
+</form>
+
 <!-- tabel and form get all user , delete and update for each user-->
 
 <table border="1" id="usersTable">
@@ -51,7 +61,10 @@
       </div>
       <div class="modal-body">
        <form id="updateUserData">
- 
+         
+        <!--useRIdInput-->
+        <input type="text" id="userIdInput" hidden>   
+
         <div>
         <label for="userName" class="col-form-label">Name:</label>
         <input type="text" class="form-control" id="userName">
