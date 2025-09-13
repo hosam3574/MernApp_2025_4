@@ -201,9 +201,20 @@ addUserForm.addEventListener('submit',async function (e) {
            })
 
     })
+    if(res.status===201){
+
+        alert("User added succwessfully");
+        addUserForm.requestFullscreen();
+        loadUsers();
+    }else{
+        var data =await res.json();
+        alert("Fsilded to add user :"+data.message);
+    }
 
     
     } catch (error) {
-        
+           console.error('Error adding user:',error)
+         alert('Failed to add user . please try again .')
+         return;
     }
 });
