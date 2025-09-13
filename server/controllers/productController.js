@@ -95,7 +95,7 @@ const UpdateProductByID =async(req , res)=>{
 
 //creat get product id
   
-const getProductById=async(req.res)=>{
+const getProdectId=async(req,res)=>{
     const id = req.params;
     try {
          const product = await product.findById(id) ;

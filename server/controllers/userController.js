@@ -94,34 +94,34 @@ res.status(401).json({ message: 'Invalid email or password' });
 //Register new user
 
 //هون بيطلعلي غلط !!!!!!!!
-const createUser = async (req, res) =>{
-const userName = req.body.username;
-const email = req. body .email;
-const password = req. body.password;
-const role = req.body.role;
+// const createUser = async (req, res) =>{
+// const userName = req.body.username;
+// const email = req. body .email;
+// const password = req. body.password;
+// const role = req.body.role;
 
-console.log(role);
+// console.log(role);
 
 
 
-try {
-// encrypt the password
-const salt = await bcrypt.genSalt (10);
-const hashedPassword = await bcrypt. hash (password, salt)
+// try {
+// // encrypt the password
+// const salt = await bcrypt.genSalt (10);
+// const hashedPassword = await bcrypt. hash (password, salt)
 
-const user = new User({
-username: userName,
- email: email,
-  password: hashedPassword,
-  role:role
-})
-await user.save();
-res.status (201). json({ message: 'User created successfully', user});
+// const user = new User({
+// username: userName,
+//  email: email,
+//   password: hashedPassword,
+//   role:role
+// })
+// await user.save();
+// res.status (201). json({ message: 'User created successfully', user});
 
-}catch(error){
-console . error ('Error creating user' ,error. message);
-res.status(500).json({message:error.message});
-}}
+// }catch(error){
+// console . error ('Error creating user' ,error. message);
+// res.status(500).json({message:error.message});
+// }}
 
 
 
@@ -230,11 +230,12 @@ return res.status(200).json({message:"Access denied"})
 const updateById = async(req,res)=>{
 const {id}=req.params
 const {username,email,role}=req.body;
+console.log(username,email,role)
 try {
       const updateById = await User.findByIdAndUpdate(id,{username,email,role})
-       res.status(200).json({message:"user Updated done",user:userToUpdate})
+       res.status(200).json({message:"user Updated done",user:updateById})
 } catch (error) {
-    res.status(500).json({message:error })
+    res.status(500).json({message:error.message })
 }
 
 

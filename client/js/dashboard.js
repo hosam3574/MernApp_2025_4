@@ -1,4 +1,3 @@
-const { populate } = require("../../server/models/user");
 
 async function getUserRole() {
     
@@ -88,11 +87,14 @@ function renderUsers(users){
     row.innerHTML=`
     <td>${user._id}</td>
      <td>${user.username}</td>
-      <td>${user._email}</td>
-       <td>${user._role}</td>
+      <td>${user.email}</td>
+       <td>${user.role}</td>
        <td>
-       <boutton onclick = "deleteUser('${user._id}')">Delete</button>
-         <boutton class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick = "showUpdateForm('${user._id}','${user.username}' ,'${user._email}','${user._role}')">Update</button>
+
+       <boutton class="btn btn-primary" onclick = "deleteUser('${user._id}')">Delete</button>
+       </td>
+       <td>
+         <boutton class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick = "showUpdateForm('${user._id}','${user.username}' ,'${user.email}','${user.role}')">Update</button>
        </td>
     `;
     usersTable.appendChild(row);
@@ -134,7 +136,7 @@ async function showUpdateForm(id,username,email,role) {
     var userRoleInput =document.getElementById('userRoleInput');
     var userIdInput = document.getElementById('userIdInput');
 
-     userIdInput.value=userIdInput;
+     userIdInput.value=id;
     userName.value=username;
     userEmail.value=email;
     userRoleInput.value=role;
@@ -152,7 +154,7 @@ updateUserData.addEventListener('submit',async function (e) {
     const token=localStorage.getItem('token');
     try {
 
-         var res= await fetch (`http://localhost:5004/api/users/updateById/${updateById}`, {
+         var res= await fetch (`http://localhost:5004/api/users/updateById/${userIdInput}`, {
            
             method :'PUT',
            headers:{ 
@@ -167,7 +169,7 @@ updateUserData.addEventListener('submit',async function (e) {
             role:userRoleInput
            })
          }) 
-        
+        console.log(res)
     } catch (error) {
                  console.error('Error updating user:',error)
          alert('Failed to updating user . please try again .')
@@ -197,7 +199,8 @@ addUserForm.addEventListener('submit',async function (e) {
       body:JSON.stringify({
             username:userName,
             email:userEmail,
-            role:userRoleInput
+            role:userRole,
+            password:userpassword
            })
 
     })
