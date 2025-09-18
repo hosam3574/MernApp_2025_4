@@ -1,4 +1,4 @@
-//import Yser modle
+//import user modle
 const User =require('../models/user');
 
 const jwt =  require ('jsonwebtoken');
