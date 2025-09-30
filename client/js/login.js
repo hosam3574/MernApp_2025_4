@@ -1,4 +1,5 @@
-var loginForm=document.getElementById('LoginForm')
+var loginForm = document.getElementById('loginForm')
+
 console.log(loginForm)
 loginForm.addEventListener('submit',async function (event) {
 
@@ -9,7 +10,7 @@ var password =document.getElementById('form2Example2').value;
 var user ={email,password}
 try {
     console.log(email,password);
-    var res =await fetch("http://127.0.0.1:5004/api/users/login",{
+    var res = await fetch("http://127.0.0.1:5004/api/users/login",{
 
         method:'POST',
         headers:{

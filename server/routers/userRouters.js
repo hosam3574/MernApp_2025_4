@@ -1,38 +1,26 @@
-// import userControoler 
-const exprees = require('express');
-const {UpdateProfile, createUser,getAllUsers,deleteUserById, updateById,profile,loginUser,checkUserRole, } = require('../controllers/userController');
-const router = exprees.Router();
-
-//import userAuth middleware
+//  import userControoler 
+const express = require('express');
+const {updateProfile,checkUSerRole,loginUser, profile,createUser,getAllUsers,deleteUSerById,updateByID,editPassword } = require('../controllers/userController');
+const router = express.Router();
+//  import userAuth middleware
 const userAuth = require('./userAuth');
 const adminAuth = require('./adminAuth');
-//create user route
 
-router.post ('/create',createUser);
-//جديد 
-router.post ('/adminCreate', adminAuth,createUser);
+//  crete user route 
+router.post('/create', createUser);
+router.post('/adminCreate', adminAuth,createUser);
+router.get('/allUsers',adminAuth,getAllUsers);
+router.delete('/delete/:id',adminAuth,deleteUSerById)
+router.put('/update',userAuth ,updateProfile)
+// updateByID
+router.put('/updateById/:id',adminAuth,updateByID)
+//  login route
+router.post('/login', loginUser);
+router.put('/editPassword',userAuth,editPassword)
 
-router.get('/allUsers', adminAuth,getAllUsers);
-router.delete('/delete/:id', adminAuth,deleteUserById)
-//router.put('/update/:id',UpdateById)هاذ المهندس حذفو 
-router.put('/update/:id',userAuth,UpdateProfile)
+//  profile route
+router.get('/profile', userAuth, profile);
+router.get('/checkRole',userAuth,checkUSerRole)
 
-//updateByID
-router.put('/updateById/:id',adminAuth, updateById)
-
-
-// login rout
-router.post('/login',loginUser)
-//router.put('/editPassword',userAuth,editPassword )
-
-
-//profile route
-router.get('/checkRole',userAuth,checkUserRole)
-router.get('/profil', userAuth,profile)
-
-
-
-
-//export the router
-
+//  export the router
 module.exports = router;
