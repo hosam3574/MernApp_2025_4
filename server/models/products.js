@@ -4,9 +4,9 @@ const ProductSchema =new mongoose.Schema({
 
 name:{type:String,require:true},
 discription :{type:String,require:true},
-category:{type:String,require:true},
+category:{type:mongoose.Schema.Types.ObjectId, ref :'Category',require:true},
 price:{type:String,require:true},
-imageUrl:{type:String,require:false},
+imageUrl:{type:String,require:true},
 
 })
 
