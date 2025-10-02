@@ -1,3 +1,4 @@
+const { options } = require("../../server/routers/userRouters");
 
 async function getUserRole() {
     const token = localStorage.getItem('token');
@@ -111,3 +112,36 @@ function renderProducts(products) {
     });
     // Attach event listeners to edit and delete buttons
 }
+
+//function to get all category
+async function loadCategoriesForProduct(){
+ try {
+        var res = await fetch("http://localhost:5004/api/categories/all", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        if (res.status === 200) {
+            var data = await res.json();
+            var categorySelect = document.getElementById('category');
+            data.forEach(category=>{
+                var option =document.createElement('option');
+                option .value =category._id;
+                option.text=category.name;
+                categorySelect.appendChild(option)
+            })
+           
+        } else {
+            console.error('Error fetching categories:', res.statusText);
+        }
+
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+
+    }
+
+
+}
+ loadCategoriesForProduct();
+    
