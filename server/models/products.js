@@ -1,14 +1,13 @@
-const mongoose =require('mongoose');
+//  crete prod model that contain name, price, description, category, imageUrl
+const mongoose = require('mongoose');
 
-const ProductSchema =new mongoose.Schema({
-
-name:{type:String,require:true},
-discription :{type:String,require:true},
-category:{type:mongoose.Schema.Types.ObjectId, ref :'Category',require:true},
-price:{type:String,require:true},
-imageUrl:{type:String,require:true},
-
+const productSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    price: { type: Number, required: true },
+    description: { type: String, required: true },
+    category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
+    imageUrl: { type: String, required: true }
 })
 
-const Product =mongoose.model('product',ProductSchema);
-module.exports=Product;
+const Product = mongoose.model('Product', productSchema);
+module.exports = Product;

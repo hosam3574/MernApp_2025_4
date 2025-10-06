@@ -6,7 +6,7 @@ const cors = require('cors');
 //  import user router
 const userRouter = require('./routers/userRouters');
 const productsRouter = require('./routers/productsRouters');
-const categoryRouter =require('./routers/categoryRouters')
+const categoryRouter = require('./routers/categoryRouters');
 
 dotenv.config();
 connectDB();
@@ -17,7 +17,8 @@ app.use(cors())
 //  use user router
 app.use('/api/users', userRouter);
 app.use('/api/products', productsRouter);
-app.use ('/api/categories',categoryRouter)
+app.use('/api/categories', categoryRouter);
+
 
 const PORT = process.env.PORT
 app.listen(PORT,()=>{

@@ -1,4 +1,3 @@
-
 //  import USer model
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
@@ -34,21 +33,36 @@ const createUser = async (req, res)=>{
     }
 }
 //  login 
-const loginUser = async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: 'User not found' });
+const loginUser = async (req,res)=>{
+    const { email, password } = req.body;
+    try {
+        //  decrypt the password
+    
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+        const isMatched = await bcrypt.compare(password,user.password)
+        if (!isMatched){
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+        
+        if (user){
+        const token = jwt.sign({id :user._id, role: user.role},process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+            res.status(200).json({ message: 'Login successful', user, token });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    res.json({ token, user });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
+        }
+        else {
+            res.status(401).json({ message: 'Invalid email or password' });
+        }
+        
+    } catch (error) {
+        console.log('Login error:', error);
+        res.status(500).json({ message: error.message });
+        
+    }
+}
 //  get all users 
 
 const getAllUsers = async (req,res)=>{

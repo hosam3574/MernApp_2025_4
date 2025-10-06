@@ -1,12 +1,9 @@
-const Category =require('../models/category.js');
-
-
-//create category
-
+const Category = require('../models/category.js');
+//  create category
 const createCategory = async (req,res)=>{
-    const { name, price, description, category, imageUrl } = req.body;
+    const { name, description, imageUrl } = req.body;
     try {
-        const category = new Product({
+        const category = new Category({
             name,
             description,
             imageUrl
@@ -15,36 +12,27 @@ const createCategory = async (req,res)=>{
         res.status(201).json({ message: 'Category created successfully', category });
     }
     catch (error) {
-        console.error('Error creating Category:', error.message);
+        console.error('Error creating category:', error.message);
         res.status(500).json({ message: error.message });
     }
 }
-
-
-
-
-//  get all categoryies
-const getAllCategoryies = async (req,res)=>{
+//  get all categories
+const getAllCategories = async (req,res)=>{
     try {
-        const categoryies = await Category.find();
-        res.status(200).json(categoryies);
+        const categories = await Category.find();
+        res.status(200).json(categories);
     } catch (error) {
-        console.error('Error fetching categoryies:', error.message);
+        console.error('Error fetching categories:', error.message);
         res.status(500).json({ message: error.message });
     }
 }
-
-
-
-
-
-//  get product by id
+//  get category by id
 const getCategoryById = async (req,res)=>{
     const id = req.params.id;
     try {
-        const category = await category.findById(id);
+        const category = await Category.findById(id);
         if (!category) {
-            return res.status(404).json({ message: 'category not found' });
+            return res.status(404).json({ message: 'Category not found' });
         }
         res.status(200).json(category);
     } catch (error) {
@@ -52,43 +40,43 @@ const getCategoryById = async (req,res)=>{
         res.status(500).json({ message: error.message });
     }
 }
-
-//  update product by id
+//  update category by id
 const updateCategoryById = async (req,res)=>{
     const id = req.params.id;
-    const { name,  description,  imageUrl } = req.body;
+    const { name, description, imageUrl } = req.body;   
     try {
-        const category = await category.findByIdAndUpdate(id, {
+        const category = await Category.findByIdAndUpdate(id, {
             name,
             description,
             imageUrl
         }, { new: true });
         if (!category) {
-            return res.status(404).json({ message: 'category not found' });
+            return res.status(404).json({ message: 'Category not found' });
         }
-        res.status(200).json({ message: 'category updated successfully', category });
-    }
-    catch (error) { 
+        res.status(200).json({ message: 'Category updated successfully', category });
+    } catch (error) {
         console.error('Error updating category:', error.message);
         res.status(500).json({ message: error.message });
     }
 }
-
-//  delete Category by id
+//  delete category by id
 const deleteCategoryById = async (req,res)=>{
     const id = req.params.id;
     try {
-        const category = await category.findByIdAndDelete(id);
+        const category = await Category.findByIdAndDelete(id);
         if (!category) {
-            return res.status(404).json({ message: 'category not found' });
+            return res.status(404).json({ message: 'Category not found' });
         }
-        res.status(200).json({ message: 'category deleted successfully' });
+        res.status(200).json({ message: 'Category deleted successfully' });
     } catch (error) {
         console.error('Error deleting category:', error.message);
         res.status(500).json({ message: error.message });
     }
 }
-
-
-
-module.exports = { createCategory,getAllCategoryies,getCategoryById,updateCategoryById,deleteCategoryById};
+module.exports = {
+    createCategory,
+    getAllCategories,
+    getCategoryById,
+    updateCategoryById,
+    deleteCategoryById
+}
